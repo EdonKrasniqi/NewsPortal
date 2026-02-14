@@ -1,0 +1,17 @@
+
+  .wraper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .textbox{
+    text-align: center;  
+    margin-right: 50px;
+  }
+  h3{
+    width: 390px;
+  }
+  .paragraf{
+    color: white;
+  }
