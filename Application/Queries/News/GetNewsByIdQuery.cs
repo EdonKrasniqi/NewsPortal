@@ -24,7 +24,24 @@ namespace Application.Queries.News
         {
             var news = await dbContext.News
                 .Where(x => x.Id == parameter)
-                .Select(x=> x.MapNewsToModel(_authorizationInterface.GetCurrentUserId() ?? Guid.Empty))
+                .Select(x=> new NewsModel
+                {
+                    CategoryId = x.CategoryId,
+                    Id = x.Id,
+                    SubTitle = x.SubTitle,
+                    Title = x.Title,
+                    isSaved = x.SavedNews.Where(x => x.UserId == _authorizationInterface.GetCurrentUserId()).Any(),
+                    IsFeatured = x.IsFeatured,
+                    Content = x.Content,
+                    CreatedById = x.CreatedById,
+                    CreatedOnDate = x.CreatedOnDate,
+                    IsDeleted = x.IsDeleted,
+                    Tags = x.Tags,
+                    UpdatedById = x.UpdatedById,
+                    UpdatedOnDate = x.UpdatedOnDate,
+                    ImageId = x.ImageId.Value,
+                    Video = x.Video
+                })
             .FirstOrDefaultAsync(cancellationToken);
 
             if (news is null)

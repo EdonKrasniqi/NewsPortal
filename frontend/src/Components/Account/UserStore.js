@@ -4,8 +4,8 @@ import Roles from "../../Constants/roles";
 import LocalStorageKey from "../../Constants/local-storage-keys";
 
 class UserStore {
-  baseUrl = "https://localhost:44306/Users";
-  accountBaseUrl = "https://localhost:44306/Account";
+  baseUrl = "https://localhost:44335/Users";
+  accountBaseUrl = "https://localhost:44335/Account";
   selectedUserId = 0;
   selectedUser = undefined;
   user = {};

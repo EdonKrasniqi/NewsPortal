@@ -42,18 +42,20 @@ namespace TaskRunner.Tasks
 
             var categories = SeedCategories(cancellationToken);
 
-            var file = CreateFormFile(Path.Combine(Directory.GetCurrentDirectory(), "Documents", "Images", "telegrafi.png"), "image/png");
+            var file = CreateFormFile(Path.Combine(Directory.GetCurrentDirectory(), "Documents", "Images", "RTK_logo.png"), "image/png");
 
             var fileEntity = await _fileUpload.ExecuteAsync(cancellationToken, _appDbContext, false, (null, file));
 
-            SeedNews(categories, fileEntity);
+            var user = await _appDbContext.Users.Where(x => x.Email == "admin@gmail.com").FirstOrDefaultAsync(cancellationToken);
+
+            SeedNews(categories, fileEntity, user);
 
             await SeedConfigurationsAsync(cancellationToken);
 
             await _appDbContext.SaveChangesAsync(CancellationToken.None);
         }
 
-        private void SeedNews(List<CategoryEntity> categoryEntities, FileEntity file)
+        private void SeedNews(List<CategoryEntity> categoryEntities, FileEntity file, AppUserEntity user)
         {
             var faker = new Faker<NewsEntity>()
                 .RuleFor(x => x.Category, f => f.PickRandom(categoryEntities))
@@ -63,6 +65,10 @@ namespace TaskRunner.Tasks
                 .RuleFor(x => x.Title, f => f.Lorem.Text().ClampLength(10))
                 .RuleFor(x => x.Content, f => f.Lorem.Text().ClampLength(100))
                 .RuleFor(x => x.ExpireDate, DateTime.Now.AddYears(1))
+                .RuleFor(x => x.CreatedById, user.Id)
+                .RuleFor(x => x.UpdatedById, user.Id)
+                .RuleFor(x => x.CreatedOnDate, DateTime.UtcNow)
+                .RuleFor(x => x.UpdatedOnDate, DateTime.UtcNow)
                 .RuleFor(x => x.Tags, f => "Test,Keyword");
 
             Random random = new Random();
@@ -82,7 +88,7 @@ namespace TaskRunner.Tasks
         private async Task SeedConfigurationsAsync(CancellationToken cancellationToken)
         {
             SiteConfigsEntity config = new SiteConfigsEntity();
-            var file = CreateFormFile(Path.Combine(Directory.GetCurrentDirectory(), "Documents", "Images", "telegrafi.png"), "image/png");
+            var file = CreateFormFile(Path.Combine(Directory.GetCurrentDirectory(), "Documents", "Images", "RTK_logo.png"), "image/png");
             var fileEntity = await _fileUpload.ExecuteAsync(cancellationToken, _appDbContext, false, (null, file));
             config.HeaderLogoId = fileEntity.Id;
             config.FooterLogoId = fileEntity.Id;

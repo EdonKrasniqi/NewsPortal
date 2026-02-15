@@ -17,9 +17,12 @@ namespace Application.Helpers
         {
             foreach(var item in news)
             {
-                var data = await fileDataCommand.ExecuteAsync(cancellationToken, dbContext, false, item.ImageId);
-                var img = FileHelper.GetBase64String(data);
-                item.Image = img;
+                if(item.ImageId != null)
+                {
+                    var data = await fileDataCommand.ExecuteAsync(cancellationToken, dbContext, false, item.ImageId);
+                    var img = FileHelper.GetBase64String(data);
+                    item.Image = img;
+                }
             }
         }
     }

@@ -23,7 +23,13 @@ namespace Application.Commands.Categories
             {
                 categories = await dbContext.Categories
                     .Where(x => x.ShowOnline)
-                    .Select(x=> x.MapEntityToModel())
+                    .Select(x => new CategoryModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ShowOnline = x.ShowOnline,
+                        Description = x.Description
+                    })
                     .ToListAsync(cancellationToken);
             }
             else

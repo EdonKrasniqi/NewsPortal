@@ -6,8 +6,7 @@
     "@emotion/styled": "^11.9.3",
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
-    "chart.js": "^4.3.0",
-    "cra-template": "1.2.0",
+    "chart.js": "3.9.1",
     "data-fns": "^0.1.8",
     "faker": "^6.6.6",
     "final-form": "^4.20.7",
@@ -17,17 +16,17 @@
     "mobx": "^6.3.2",
     "mobx-react": "^7.2.0",
     "mobx-react-lite": "^3.2.0",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.4.0",
+    "react": "16.14.0",
+    "react-bootstrap": "^1.6.6",
     "react-bootstrap-carousel": "^4.1.1",
-    "react-chartjs-2": "^4.3.1",
+    "react-chartjs-2": "3.0.4",
     "react-datepicker": "^4.8.0",
-    "react-dom": "^17.0.2",
+    "react-dom": "16.14.0",
     "react-final-form": "^6.5.9",
     "react-icons": "^4.4.0",
     "react-messenger-customer-chat": "^0.8.0",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "react-toastify": "^9.0.7",
@@ -42,12 +41,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

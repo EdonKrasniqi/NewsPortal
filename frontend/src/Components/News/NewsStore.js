@@ -2,9 +2,9 @@ import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 
 export default class NewsStore {
-  newsbaseUrl = "https://localhost:44306/News";
-  newsConfigBaseUrl = "https://localhost:44306/Config";
-  userNewsBaseUrl = "https://localhost:44306/UserNews";
+  newsbaseUrl = "https://localhost:44335/News";
+  newsConfigBaseUrl = "https://localhost:44335/Config";
+  userNewsBaseUrl = "https://localhost:44335/UserNews";
   selectedNewsId = undefined;
   headerImg = undefined;
   footerImg = undefined;

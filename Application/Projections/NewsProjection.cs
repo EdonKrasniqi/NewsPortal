@@ -14,33 +14,33 @@ namespace Application.Projections
 {
     public static class NewsProjection
     {
-        [Expandable(nameof(MapNewsToModelImpl))]
-        public static NewsModel MapNewsToModel(this NewsEntity entity,Guid CurrentUserId)
-        {
-            throw new Exception();
-        }
-
-        private static Expression<Func<NewsEntity,Guid,NewsModel>> MapNewsToModelImpl()
-        {
-            return (x, currentUser) => new NewsModel
+            [Expandable(nameof(MapNewsToModelImpl))]
+            public static NewsModel MapNewsToModel(this NewsEntity entity,Guid CurrentUserId)
             {
-                CategoryId = x.CategoryId,
-                Id = x.Id,
-                SubTitle = x.SubTitle,
-                Title = x.Title,
-                isSaved = x.SavedNews.Where(x => x.UserId == currentUser).Any(),
-                IsFeatured = x.IsFeatured,
-                Content = x.Content,
-                CreatedById = x.CreatedById,
-                CreatedOnDate = x.CreatedOnDate,
-                IsDeleted = x.IsDeleted,
-                Tags = x.Tags,
-                UpdatedById = x.UpdatedById,
-                UpdatedOnDate = x.UpdatedOnDate,
-                ImageId = x.ImageId,
-                Video = x.Video
-            };
-        }
+                throw new Exception();
+            }
+
+            private static Expression<Func<NewsEntity,Guid,NewsModel>> MapNewsToModelImpl()
+            {
+                return (x, currentUser) => new NewsModel
+                {
+                    CategoryId = x.CategoryId,
+                    Id = x.Id,
+                    SubTitle = x.SubTitle,
+                    Title = x.Title,
+                    isSaved = x.SavedNews.Where(x => x.UserId == currentUser).Any(),
+                    IsFeatured = x.IsFeatured,
+                    Content = x.Content,
+                    CreatedById = x.CreatedById,
+                    CreatedOnDate = x.CreatedOnDate,
+                    IsDeleted = x.IsDeleted,
+                    Tags = x.Tags,
+                    UpdatedById = x.UpdatedById,
+                    UpdatedOnDate = x.UpdatedOnDate,
+                    ImageId = x.ImageId.Value,
+                    Video = x.Video
+                };
+            }
 
         public static NewsEntity MapNewsEntityFromModel(this NewsModel model)
         {

@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Models;
 using Infrastructure.Database;
+using Infrastructure.Security;
 using LinqKit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +15,6 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Portal.Middlewares;
 using Portal.Models;
-using System.Net;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,20 +75,21 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
-       .WithExpressionExpanding());
+    opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUserEntity, RolesEntity>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddIdentityCore<AppUserEntity>(opt =>
-{
-    opt.Password.RequireNonAlphanumeric = false;
-})
-.AddSignInManager<SignInManager<AppUserEntity>>();
 
 var jwtSettings = configuration.GetSection("JWT").Get<JwtModel>();
+
+
+if (jwtSettings == null || string.IsNullOrEmpty(jwtSettings.Secret))
+{
+    throw new Exception("JWT settings not loaded correctly.");
+}
+
 builder.Services.AddSingleton(jwtSettings);
 
 var tokenValidationParameters = new TokenValidationParameters()

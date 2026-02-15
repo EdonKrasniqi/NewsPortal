@@ -2,7 +2,7 @@ import axios from "axios";
 import { makeAutoObservable, runInAction } from "mobx";
 
 class ReportStore {
-  baseUrl = "https://localhost:44306/Report";
+  baseUrl = "https://localhost:44335/Report";
 
   constructor() {
     makeAutoObservable(this);

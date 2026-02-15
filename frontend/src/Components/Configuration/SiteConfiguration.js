@@ -2,7 +2,7 @@ import axios from "axios";
 import { makeAutoObservable, runInAction } from "mobx";
 
 class ConfigurationStore {
-  baseUrl = "https://localhost:44306/Config";
+  baseUrl = "https://localhost:44335/Config";
   configurations = new Map();
 
   constructor() {

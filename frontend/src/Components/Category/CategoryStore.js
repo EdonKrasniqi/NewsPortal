@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 
 export default class CategoryStore {
-  baseUrl = "https://localhost:44306/Category";
+  baseUrl = "https://localhost:44335/Category";
   selectedCategory = undefined;
   editmode = false;
   detailsmode = false;
